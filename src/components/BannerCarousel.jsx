@@ -7,14 +7,18 @@ export function BannerCarousel() {
   return (
     <div className="embla" ref={emblaRef}>
       <div className="embla__container">
+
+        {/* picture 1 */}
         <div className="embla__slide">
           <img src='/img/banner-image.png' alt="Slide 1" className='object-cover'/>
         </div>
 
+        {/* picture 2 */}
         <div className="embla__slide">
           <img src='/img/banner-image-2.png' alt="Slide 2" className='object-cover'/>
         </div>
 
+        {/* picture 3 */}
         <div className="embla__slide">
           <img src='/img/banner-image-3.png' alt="Slide 3" className='object-cover'/>
         </div>
