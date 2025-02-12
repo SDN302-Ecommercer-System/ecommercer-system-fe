@@ -1,3 +1,4 @@
+import '@mantine/core/styles.css';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import './assets/css/embla-carousel.css'
@@ -6,7 +7,8 @@ import { Provider } from 'react-redux';
 import { MantineProvider } from '@mantine/core';
 import store from './redux/store/store.js';
 import "./assets/i18n.js";
-import '@mantine/carousel/styles.css';
+import '@mantine/notifications/styles.css';
+
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
