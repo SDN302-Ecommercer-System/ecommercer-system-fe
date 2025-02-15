@@ -20,6 +20,11 @@ const resources = {
       female: "FEMALE",
       boy: "BOY",
       girl: "GIRL",
+      voucher: "Hot Voucher",
+      voucherDesc: "50k Off Orders From 999k",
+      voucherDesc100: "100k Off Orders From 2000k",
+      getVoucher: "Save Voucher",
+      newProduct: "New Product",
       brand: {
         brand_name: "Brand",
         news: "News",
@@ -78,6 +83,11 @@ const resources = {
       female: "NỮ",
       boy: "Bé Trai",
       girl: "Bé Gái",
+      voucher: "Ưu đãi nóng",
+      voucherDesc: "Giảm 50k cho đơn từ 999k",
+      voucherDesc100: "Giảm 100k cho đơn từ 2000k",
+      getVoucher: "Lưu mã giảm giá",
+      newProduct: "Sản Phẩm Mới",
       brand: {
         brand_name: "Thương hiệu",
         news: "Tin tức",

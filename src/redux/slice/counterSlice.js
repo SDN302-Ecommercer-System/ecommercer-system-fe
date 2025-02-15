@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { COUNTER } from "../../helpers/constants/constant";
 
 const counterSlice = createSlice({
-    name: COUNTER,
+    name: "COUNTER",
     initialState: {
         value: 0,
         countClick: 0,
