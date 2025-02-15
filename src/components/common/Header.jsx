@@ -8,7 +8,7 @@ import { Modal, Select } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import { phoneRegex } from "../../helpers/regex";
-import { Notifications, notifications } from '@mantine/notifications';
+import { notifications } from '@mantine/notifications';
 
 
 const Header = () => {
@@ -190,7 +190,6 @@ const Header = () => {
           </div>
         ) : (
           <div className="flex flex-col gap-4">
-            <Notifications/>
             <img
               src="https://media.canifa.com/system/banner/default/Slide55-web_desktop.png"
               alt=""
