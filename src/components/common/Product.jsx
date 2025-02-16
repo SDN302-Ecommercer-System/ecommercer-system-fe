@@ -26,7 +26,7 @@ const Product = ({ imageUrls, colors, price, title, sizes, discount }) => {
             {Array.isArray(sizes) &&
               sizes.map((size, index) => (
                 <span
-                  className="flex items-center justify-center w-8 h-8 p-2 cursor-pointer text-slate-900 bg-slate-50"
+                  className="flex items-center justify-center h-8 p-2 cursor-pointer min-w-8 text-slate-900 bg-slate-50"
                   key={index}
                 >
                   {size}
