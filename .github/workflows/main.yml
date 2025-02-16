@@ -16,7 +16,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: 22
           script: |
-            cd /sdn302/ecommercer-system-fe
+            cd sdn302/ecommercer-system-fe
             git fetch origin
             git checkout main
             git pull
