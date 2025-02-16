@@ -77,6 +77,21 @@ const Home = () => {
       discount: 30,
       size: ['S', 'M', 'L']
     },
+
+
+    {
+      imgUrls: [
+        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sw011-thumb.webp",
+        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sa871-thumb.webp",
+        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sg649-thumb.webp",
+        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sp250-thumb.webp"
+      ],
+      colors: ["bg-slate-200", "bg-slate-400", "bg-slate-300", "bg-blue-400"],
+      title: "Áo nỉ unisex trẻ em có hình in",
+      price: 314.000,
+      discount: 30,
+      size: ['S', 'M', 'TEST_CD']
+    },
   ]);
 
   /**
