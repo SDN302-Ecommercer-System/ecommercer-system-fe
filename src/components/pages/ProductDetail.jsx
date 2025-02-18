@@ -6,7 +6,7 @@ const ProductDetail = () => {
   return (
     <MainLayout>
       <div>
-        
+        <h1>Detail of product {id}</h1>
       </div>
     </MainLayout>
   )
