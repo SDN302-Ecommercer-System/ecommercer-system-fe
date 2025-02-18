@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import ShopIcon from "../../assets/icons/ShopIcon";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import AccountIcon from "../../assets/icons/AccountHeader";
 import CartHeader from "../../assets/icons/CartHeader";
@@ -17,6 +17,7 @@ const Header = () => {
   const [disabled, setDisabled] = useState(true);
   const [phone, setPhone] = useState("");
   const [isContinue, setIsContinue] = useState(false);
+  const navigate = useNavigate();
 
   /**
    * handle input phone
@@ -72,7 +73,11 @@ const Header = () => {
       <div className="flex items-center w-5/6 h-full mx-auto gap-x-4">
         <div className="flex items-center h-full gap-x-4">
           {/* icon */}
-          <div className="flex items-center gap-2 p-2 duration-500 bg-red-600 rounded-md cursor-pointer max-w-max hover:bg-red-700">
+          <div className="flex items-center gap-2 p-2 duration-500 bg-red-600 rounded-md cursor-pointer max-w-max hover:bg-red-700"
+            onClick={() => {
+              navigate('/')
+            }}
+          >
             <ShopIcon />
             <span className="text-base font-bold text-white uppercase">
               {t("shop")}

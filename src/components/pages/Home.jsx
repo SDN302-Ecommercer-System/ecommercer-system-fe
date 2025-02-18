@@ -5,92 +5,97 @@ import CONSTANT_VALUE from "../../helpers/constants/constant";
 import { useState } from "react";
 import Product from "../common/Product";
 import { Pagination } from "@mantine/core";
-
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const { t } = useTranslation();
   const [data] = useState([
     {
+      id: "sajdjas",
       imgUrls: [
         "https://2885706055.e.cdneverest.net/img/500/750/resize/5/b/5bp24w003-sa921-thumb.webp",
         "https://2885706055.e.cdneverest.net/img/500/750/resize/5/b/5bp24w003-se528-thumb.webp",
       ],
       colors: ["bg-red-500", "bg-amber-500"],
       title: "Quần nỉ unisex người lớn",
-      price: 699.000,
+      price: 699.0,
       discount: 0,
-      size: ['S', 'M', 'L']
+      size: ["S", "M", "L"],
     },
 
     {
+      id: "sajdjas",
       imgUrls: [
         "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sw011-thumb.webp",
         "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sa871-thumb.webp",
         "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sg649-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sp250-thumb.webp"
+        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sp250-thumb.webp",
       ],
       colors: ["bg-slate-200", "bg-slate-400", "bg-slate-300", "bg-blue-400"],
       title: "Áo nỉ unisex trẻ em có hình in",
-      price: 314.000,
+      price: 314.0,
       discount: 30,
-      size: ['S', 'M', 'L']
+      size: ["S", "M", "L"],
     },
 
     {
+      id: "sajdjas",
       imgUrls: [
         "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sw011-thumb.webp",
         "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sa871-thumb.webp",
         "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sg649-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sp250-thumb.webp"
+        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sp250-thumb.webp",
       ],
       colors: ["bg-slate-200", "bg-slate-400", "bg-slate-300", "bg-blue-400"],
       title: "Áo nỉ unisex trẻ em có hình in",
-      price: 449.000,
+      price: 449.0,
       discount: 30,
-      size: ['S', 'M', 'L', 'XL']
+      size: ["S", "M", "L", "XL"],
     },
 
     {
+      id: "sajdjas",
       imgUrls: [
         "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sw011-thumb.webp",
         "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sa871-thumb.webp",
         "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sg649-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sp250-thumb.webp"
+        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sp250-thumb.webp",
       ],
       colors: ["bg-slate-200", "bg-slate-400", "bg-slate-300", "bg-blue-400"],
       title: "Áo nỉ unisex trẻ em có hình in",
-      price: 314.000,
+      price: 314.0,
       discount: 30,
-      size: ['S', 'M', 'L']
+      size: ["S", "M", "L"],
     },
 
     {
+      id: "sajdjas",
       imgUrls: [
         "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sw011-thumb.webp",
         "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sa871-thumb.webp",
         "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sg649-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sp250-thumb.webp"
+        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sp250-thumb.webp",
       ],
       colors: ["bg-slate-200", "bg-slate-400", "bg-slate-300", "bg-blue-400"],
       title: "Áo nỉ unisex trẻ em có hình in",
-      price: 314.000,
+      price: 314.0,
       discount: 30,
-      size: ['S', 'M', 'L']
+      size: ["S", "M", "L"],
     },
 
-
     {
+      id: "sajdjas",
       imgUrls: [
         "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sw011-thumb.webp",
         "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sa871-thumb.webp",
         "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sg649-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sp250-thumb.webp"
+        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sp250-thumb.webp",
       ],
       colors: ["bg-slate-200", "bg-slate-400", "bg-slate-300", "bg-blue-400"],
       title: "Áo nỉ unisex trẻ em có hình in",
-      price: 314.000,
+      price: 314.0,
       discount: 30,
-      size: ['S', 'M', 'TEST_CD']
+      size: ["S", "M", "TEST_CD"],
     },
   ]);
 
@@ -189,15 +194,17 @@ const Home = () => {
 
       <div className="grid grid-cols-4 my-10 gap-x-6 gap-y-20">
         {data.map((item, index) => (
-          <Product
-            key={index}
-            colors={item.colors}
-            imageUrls={item.imgUrls}
-            price={item.price}
-            title={item.title}
-            sizes={item.size}
-            discount={item.discount}
-          />
+          <Link key={index} to={`product/${item.id}`}>
+            <Product
+              key={index}
+              colors={item.colors}
+              imageUrls={item.imgUrls}
+              price={item.price}
+              title={item.title}
+              sizes={item.size}
+              discount={item.discount}
+            />
+          </Link>
         ))}
       </div>
 

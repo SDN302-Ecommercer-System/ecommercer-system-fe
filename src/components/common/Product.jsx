@@ -45,11 +45,11 @@ const Product = ({ imageUrls, colors, price, title, sizes, discount }) => {
   return (
     <div>
       <div
-        className="relative group"
+        className="relative group max-w-max max-h-max"
         onMouseLeave={() => setIsClickedAddToCart(false)}
       >
         <img
-          className="object-cover cursor-pointer w-82 h-96 "
+          className="object-cover w-full h-full cursor-pointer "
           src={Array.isArray(imageUrls) && imageUrls[selectedImage.imageIndex]}
           alt="image-product"
         />

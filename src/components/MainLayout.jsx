@@ -5,8 +5,9 @@ import Footer from "./common/Footer";
 import { Notifications } from "@mantine/notifications";
 
 const MainLayout = ({ children }) => {
+
   return (
-    <div className="flex flex-col max-w-screen">
+    <div className="flex flex-col max-w-full">
       <Notifications/>
       
       <div className="w-full py-2 font-bold text-center text-yellow-300 bg-slate-800">
