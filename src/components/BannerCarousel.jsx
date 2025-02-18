@@ -1,11 +1,14 @@
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
+import { useLocation } from 'react-router-dom';
 
 export function BannerCarousel() {
   const [emblaRef] = useEmblaCarousel({ loop: false }, [Autoplay()])
+    //get router access the page
+    const location = useLocation();
 
   return (
-    <div className="embla" ref={emblaRef}>
+    location.pathname === '/' && <div className="embla" ref={emblaRef}>
       <div className="embla__container">
 
         {/* picture 1 */}
