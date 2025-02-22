@@ -2,10 +2,10 @@ import MainLayout from "../MainLayout";
 import { useTranslation } from "react-i18next";
 import { notifications } from "@mantine/notifications";
 import CONSTANT_VALUE from "../../helpers/constants/constant";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Product from "../common/Product";
 import { Pagination } from "@mantine/core";
-import { Link } from "react-router-dom";
+import axiosInstance from "../../config/axios.config";
 
 const Home = () => {
   const { t } = useTranslation();
@@ -127,6 +127,19 @@ const Home = () => {
       .catch(failedCallback);
   };
 
+  const callApi = async () => {
+    try {
+      const response = await axiosInstance.get("/user");
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    callApi();
+  })
+
   return (
     <MainLayout>
       <div className="mb-10 bg-">
@@ -194,17 +207,16 @@ const Home = () => {
 
       <div className="grid grid-cols-4 my-10 gap-x-6 gap-y-20">
         {data.map((item, index) => (
-          <Link key={index} to={`product/${item.id}`}>
-            <Product
-              key={index}
-              colors={item.colors}
-              imageUrls={item.imgUrls}
-              price={item.price}
-              title={item.title}
-              sizes={item.size}
-              discount={item.discount}
-            />
-          </Link>
+          <Product
+            key={index}
+            id={item.id}
+            colors={item.colors}
+            imageUrls={item.imgUrls}
+            price={item.price}
+            title={item.title}
+            sizes={item.size}
+            discount={item.discount}
+          />
         ))}
       </div>
 
