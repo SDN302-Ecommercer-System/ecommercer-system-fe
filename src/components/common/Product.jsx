@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
 import { formatMoney } from "../../helpers/helper";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-const Product = ({ imageUrls, colors, price, title, sizes, discount }) => {
+const Product = ({ id, imageUrls, colors, price, title, sizes, discount }) => {
   const [selectedImage, setSelectedImage] = useState({
     colorIndex: 0,
     imageIndex: 0,
@@ -48,11 +49,15 @@ const Product = ({ imageUrls, colors, price, title, sizes, discount }) => {
         className="relative group max-w-max max-h-max"
         onMouseLeave={() => setIsClickedAddToCart(false)}
       >
-        <img
-          className="object-cover w-full h-full cursor-pointer "
-          src={Array.isArray(imageUrls) && imageUrls[selectedImage.imageIndex]}
-          alt="image-product"
-        />
+        <Link to={`product/${id}`}>
+          <img
+            className="object-cover w-full h-full cursor-pointer "
+            src={
+              Array.isArray(imageUrls) && imageUrls[selectedImage.imageIndex]
+            }
+            alt="image-product"
+          />
+        </Link>
         <div className="absolute bottom-0 left-0 right-0 hidden w-full p-2 group-hover:block">
           {isClickedAddToCart ? (
             <ChooseSizeLayout sizes={sizes} />
@@ -83,7 +88,9 @@ const Product = ({ imageUrls, colors, price, title, sizes, discount }) => {
           ))}
       </div>
 
-      <h4 className="text-base">{title}</h4>
+      <Link to={`product/${id}`}>
+        <h4 className="text-base">{title}</h4>
+      </Link>
       <p className="text-base font-bold">
         {formatMoney(
           discount && discount !== 0 ? price - (discount / 100) * price : price,
@@ -103,6 +110,7 @@ const Product = ({ imageUrls, colors, price, title, sizes, discount }) => {
 };
 
 Product.propTypes = {
+  id: PropTypes.string.isRequired,
   imageUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
   colors: PropTypes.arrayOf(PropTypes.string).isRequired,
   price: PropTypes.number.isRequired,
