@@ -127,18 +127,6 @@ const Home = () => {
       .catch(failedCallback);
   };
 
-  const callApi = async () => {
-    try {
-      const response = await axiosInstance.get("/user");
-      console.log(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  useEffect(() => {
-    callApi();
-  })
 
   return (
     <MainLayout>
