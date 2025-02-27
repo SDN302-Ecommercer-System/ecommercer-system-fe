@@ -8,12 +8,15 @@ import { Modal, Select } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import { phoneRegex } from "../../helpers/regex";
-import { notifications } from '@mantine/notifications';
-
+import { notifications } from "@mantine/notifications";
+import CartItem from "../CartItem";
 
 const Header = () => {
   const { t, i18n } = useTranslation();
   const [opened, { open, close }] = useDisclosure(false);
+  const [openedCart, { open: openCart, close: closeCart }] =
+    useDisclosure(false);
+
   const [disabled, setDisabled] = useState(true);
   const [phone, setPhone] = useState("");
   const [isContinue, setIsContinue] = useState(false);
@@ -41,8 +44,8 @@ const Header = () => {
       notifications.show({
         title: t("error.phone_login.phone_format_err_title"),
         message: t("error.phone_login.phone_format_err_message"),
-        position: 'top-right',
-        color: 'red',
+        position: "top-right",
+        color: "red",
       });
       return;
     }
@@ -73,9 +76,10 @@ const Header = () => {
       <div className="flex items-center w-5/6 h-full mx-auto gap-x-4">
         <div className="flex items-center h-full gap-x-4">
           {/* icon */}
-          <div className="flex items-center gap-2 p-2 duration-500 bg-red-600 rounded-md cursor-pointer max-w-max hover:bg-red-700"
+          <div
+            className="flex items-center gap-2 p-2 duration-500 bg-red-600 rounded-md cursor-pointer max-w-max hover:bg-red-700"
             onClick={() => {
-              navigate('/')
+              navigate("/");
             }}
           >
             <ShopIcon />
@@ -129,7 +133,10 @@ const Header = () => {
               <span>{t("account")}</span>
             </div>
 
-            <div className="flex flex-col items-center text-sm hover:underline">
+            <div
+              className="flex flex-col items-center text-sm hover:underline"
+              onClick={openCart}
+            >
               <CartHeader />
               <span>{t("cart")}</span>
             </div>
@@ -233,6 +240,39 @@ const Header = () => {
             </button>
           </div>
         )}
+      </Modal>
+
+      <Modal
+        opened={openedCart}
+        onClose={closeCart}
+        transitionProps={{ transition: "slide-left", duration: 200 }}
+        classNames={{
+          content: "fixed top-0 right-0 min-h-screen overflow-hidden w-[500px] !rounded-none",
+          body: "!p-0 h-screen",
+          title: "font-bold text-xl",
+        }}
+        title="Giỏ hàng (1)"
+      >
+        <div className="flex flex-col justify-between h-[90%]">
+          <div className="flex flex-col items-center gap-y-4 max-h-[480px] overflow-y-auto">
+            {Array.from({ length: 10}).map((_, index) => (
+              <CartItem key={index} />
+            ))}
+          </div>
+
+          <div>
+            <div className="flex items-center justify-between px-4 py-6 border-t border-slate-300">
+              <span className="text-base font-bold">Tổng cộng:</span>
+              <span className="text-base font-bold">999.000đ</span>
+            </div>
+
+            <div className="flex items-center justify-between px-4 py-6 border-t border-slate-300">
+              <button className="w-full p-2 text-white bg-red-500 rounded-md hover:bg-red-600 active:bg-red-700">
+                Thanh toán
+              </button>
+            </div>
+          </div>
+        </div>
       </Modal>
     </div>
   );
