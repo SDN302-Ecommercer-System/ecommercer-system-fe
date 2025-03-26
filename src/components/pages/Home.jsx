@@ -6,98 +6,47 @@ import { useEffect, useState } from "react";
 import Product from "../common/Product";
 import { Pagination } from "@mantine/core";
 import axiosInstance from "../../config/axios.config";
+import { useSearchParams } from "react-router-dom";
 
 const Home = () => {
   const { t } = useTranslation();
-  const [data] = useState([
-    {
-      id: "sajdjas",
-      imgUrls: [
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/5/b/5bp24w003-sa921-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/5/b/5bp24w003-se528-thumb.webp",
-      ],
-      colors: ["bg-red-500", "bg-amber-500"],
-      title: "Quần nỉ unisex người lớn",
-      price: 699.0,
-      discount: 0,
-      size: ["S", "M", "L"],
-    },
+  const [searchParams] = useSearchParams();
+  const [data, setData] = useState([]);
+  const [metadata, setMetadata] = useState({
+    currentPage: 1,
+    totalPages: 1,
+    totalProducts: 0
+  });
 
-    {
-      id: "sajdjas",
-      imgUrls: [
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sw011-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sa871-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sg649-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sp250-thumb.webp",
-      ],
-      colors: ["bg-slate-200", "bg-slate-400", "bg-slate-300", "bg-blue-400"],
-      title: "Áo nỉ unisex trẻ em có hình in",
-      price: 314.0,
-      discount: 30,
-      size: ["S", "M", "L"],
-    },
+  const getData = async (page = 1) => {
+    try {
+      const category = searchParams.get("category") || "";
+      const search = searchParams.get("search") || "";
+      const response = await axiosInstance.get(`/product?page=${page}&category=${category}&search=${search}`);
 
-    {
-      id: "sajdjas",
-      imgUrls: [
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sw011-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sa871-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sg649-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sp250-thumb.webp",
-      ],
-      colors: ["bg-slate-200", "bg-slate-400", "bg-slate-300", "bg-blue-400"],
-      title: "Áo nỉ unisex trẻ em có hình in",
-      price: 449.0,
-      discount: 30,
-      size: ["S", "M", "L", "XL"],
-    },
+      if (response?.data?.success) {
+        setData(response.data.data);
+        setMetadata(response.data.metadata);
+      } else {
+        console.error("Error fetching data:", response?.data?.message);
+      }
+    } catch (error) {
+      console.error("API call error:", error);
+    }
+  };
 
-    {
-      id: "sajdjas",
-      imgUrls: [
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sw011-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sa871-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sg649-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sp250-thumb.webp",
-      ],
-      colors: ["bg-slate-200", "bg-slate-400", "bg-slate-300", "bg-blue-400"],
-      title: "Áo nỉ unisex trẻ em có hình in",
-      price: 314.0,
-      discount: 30,
-      size: ["S", "M", "L"],
-    },
+  // Watch for category and search changes
+  useEffect(() => {
+    const currentPage = parseInt(searchParams.get("page")) || 1;
+    getData(currentPage);
+  }, [searchParams]);
 
-    {
-      id: "sajdjas",
-      imgUrls: [
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sw011-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sa871-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sg649-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sp250-thumb.webp",
-      ],
-      colors: ["bg-slate-200", "bg-slate-400", "bg-slate-300", "bg-blue-400"],
-      title: "Áo nỉ unisex trẻ em có hình in",
-      price: 314.0,
-      discount: 30,
-      size: ["S", "M", "L"],
-    },
-
-    {
-      id: "sajdjas",
-      imgUrls: [
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sw011-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sa871-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sg649-thumb.webp",
-        "https://2885706055.e.cdneverest.net/img/500/750/resize/3/t/3tw24w001-sp250-thumb.webp",
-      ],
-      colors: ["bg-slate-200", "bg-slate-400", "bg-slate-300", "bg-blue-400"],
-      title: "Áo nỉ unisex trẻ em có hình in",
-      price: 314.0,
-      discount: 30,
-      size: ["S", "M", "TEST_CD"],
-    },
-  ]);
+  // Handle page changes
+  const handlePageChange = (page) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", page.toString());
+    window.location.href = `?${params.toString()}`;
+  };
 
   /**
    * copy the value
@@ -126,7 +75,6 @@ const Home = () => {
       .then(successCallback)
       .catch(failedCallback);
   };
-
 
   return (
     <MainLayout>
@@ -194,22 +142,28 @@ const Home = () => {
       <img src="/img/img-collection.png" alt="collection-image" />
 
       <div className="grid grid-cols-4 my-10 gap-x-6 gap-y-20">
-        {data.map((item, index) => (
-          <Product
-            key={index}
-            id={item.id}
-            colors={item.colors}
-            imageUrls={item.imgUrls}
-            price={item.price}
-            title={item.title}
-            sizes={item.size}
-            discount={item.discount}
-          />
-        ))}
+        {data.map((item, index) => {
+          return (
+            <Product
+              key={index}
+              id={item?._id}
+              colors={item?.colors ?? []}
+              price={item?.price ?? 0}
+              title={item?.name ?? "Không có tên"}
+              sizes={item?.sizes ?? []}
+              discount={item?.discount ?? 0}
+            />
+          );
+        })}
       </div>
 
-      <div className="flex items-center justify-center w-full">
-        <Pagination total={10} />
+      <div className="flex items-center justify-center w-full mb-10">
+        <Pagination 
+          color="red"
+          total={metadata.totalPages} 
+          value={metadata.currentPage}
+          onChange={handlePageChange}
+        />
       </div>
     </MainLayout>
   );

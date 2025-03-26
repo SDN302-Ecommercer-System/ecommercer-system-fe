@@ -11,9 +11,10 @@ const resources = {
       cart: "Cart",
       login: "Login",
       please_input_phone: "Please input your phone number",
+      please_input_password: "Please input your password",
       continue: "Continue",
       choose_verify_phone_method:
-        "Choose a method to receive the verification code",
+        "Please input your OTP verify code",
       sms_verify: "SMS",
       cancel: "Cancel",
       male: "MALE",
@@ -25,6 +26,7 @@ const resources = {
       voucherDesc100: "100k Off Orders From 2000k",
       getVoucher: "Save Voucher",
       newProduct: "New Product",
+      submit: "Submit",
       brand: {
         brand_name: "Brand",
         news: "News",
@@ -60,8 +62,10 @@ const resources = {
       },
       error: {
         phone_login: {
-          phone_format_err_title: "Invalid password format",
-          phone_format_err_message: "Please try input password again",
+          phone_format_err_title: "Invalid phone format",
+          phone_format_err_message: "Please try input phone again",
+          password_format_err_title: "Invalid password format",
+          password_format_err_message: "Please try input password again",
         },
       },
     },
@@ -75,8 +79,9 @@ const resources = {
       cart: "Giỏ hàng",
       login: "Đăng nhập",
       please_input_phone: "Vui lòng nhập số điện thoại của bạn",
+      please_input_password: "Vui lòng nhập mật khẩu của bạn",
       continue: "Tiếp tục",
-      choose_verify_phone_method: "Chọn phương thức nhận mã xác thực",
+      choose_verify_phone_method: "Vui lòng nhập mã OTP đã gửi qua số điện thoại",
       sms_verify: "Tin nhắn SMS",
       cancel: "Hủy",
       male: "NAM",
@@ -88,6 +93,7 @@ const resources = {
       voucherDesc100: "Giảm 100k cho đơn từ 2000k",
       getVoucher: "Lưu mã giảm giá",
       newProduct: "Sản Phẩm Mới",
+      submit: "Xác nhận",
       brand: {
         brand_name: "Thương hiệu",
         news: "Tin tức",
@@ -123,8 +129,10 @@ const resources = {
       },
       error: {
         phone_login: {
-          phone_format_err_title: "Mật khẩu sai định dạng",
-          phone_format_err_message: "Vui lòng nhập lại mật khẩu",
+          phone_format_err_title: "Số điện thoại không phù hợp",
+          phone_format_err_message: "Vui lòng nhập lại số điện thoại",
+          password_format_err_title: "Mật khẩu sai định dạng",
+          password_format_err_message: "Vui lòng nhập lại mật khẩu",
         },
       },
     },

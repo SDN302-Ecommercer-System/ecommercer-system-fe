@@ -2,12 +2,26 @@ import PropTypes from "prop-types";
 import { formatMoney } from "../../helpers/helper";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCartAsync } from "../../redux/slice/counterSlice";
+import useAuth from "../../hooks/useAuth";
+import { notifications } from "@mantine/notifications";
 
-const Product = ({ id, imageUrls, colors, price, title, sizes, discount }) => {
+const Product = ({ id, colors, price, title, sizes, discount }) => {
   const [selectedImage, setSelectedImage] = useState({
     colorIndex: 0,
     imageIndex: 0,
   });
+
+  const { isAuthenticated } = useAuth();
+
+  const dispatch = useDispatch();
+
+  let imageUrls = [];
+
+  if (Array.isArray(colors)) {
+    imageUrls = colors.map((item) => item.images?.[0]?.url).filter(Boolean);
+  }
 
   const [isClickedAddToCart, setIsClickedAddToCart] = useState(false);
 
@@ -15,6 +29,37 @@ const Product = ({ id, imageUrls, colors, price, title, sizes, discount }) => {
     setSelectedImage({
       colorIndex: index,
       imageIndex: index,
+    });
+  };
+
+  const addToCart = async (size) => {
+    if (!isAuthenticated) {
+      notifications.show({
+        title: "You must be login first",
+        message: "Please login to buy product",
+        position: "top-right",
+        color: "red",
+      });
+      return;
+    }
+    const priceDiscount =
+      discount !== 0 ? price - price * (discount / 100) : price;
+
+    const item = {
+      productId: id,
+      price: priceDiscount,
+      quantity: 1,
+      colorId: colors[selectedImage.colorIndex]._id,
+      size: size.size,
+    };
+
+    dispatch(addToCartAsync(item)).then(() => {
+      notifications.show({
+        title: "Thêm vào giỏ hàng thành công",
+        message: "Vào giỏ hàng để có thể xem",
+        position: "top-right",
+        color: "green",
+      });
     });
   };
 
@@ -29,8 +74,9 @@ const Product = ({ id, imageUrls, colors, price, title, sizes, discount }) => {
                 <span
                   className="flex items-center justify-center h-8 p-2 cursor-pointer min-w-8 text-slate-900 bg-slate-50"
                   key={index}
+                  onClick={() => addToCart(size)}
                 >
-                  {size}
+                  {size.size}
                 </span>
               ))}
           </div>
@@ -40,7 +86,13 @@ const Product = ({ id, imageUrls, colors, price, title, sizes, discount }) => {
   };
 
   ChooseSizeLayout.propTypes = {
-    sizes: PropTypes.arrayOf(PropTypes.string).isRequired,
+    sizes: PropTypes.arrayOf(
+      PropTypes.shape({
+        size: PropTypes.string.isRequired,
+        quantity: PropTypes.number.isRequired,
+        _id: PropTypes.string.isRequired,
+      })
+    ).isRequired,
   };
 
   return (
@@ -51,10 +103,8 @@ const Product = ({ id, imageUrls, colors, price, title, sizes, discount }) => {
       >
         <Link to={`product/${id}`}>
           <img
-            className="object-cover w-full h-full cursor-pointer "
-            src={
-              Array.isArray(imageUrls) && imageUrls[selectedImage.imageIndex]
-            }
+            className="object-cover w-full h-full cursor-pointer"
+            src={imageUrls[selectedImage.imageIndex]}
             alt="image-product"
           />
         </Link>
@@ -83,7 +133,10 @@ const Product = ({ id, imageUrls, colors, price, title, sizes, discount }) => {
                   : "border-slate-300"
               }`}
             >
-              <div className={`w-5 h-5 rounded-full ${color}`}></div>
+              <div
+                className={`w-5 h-5 rounded-full`}
+                style={{ backgroundColor: color.hexCode }}
+              ></div>
             </div>
           ))}
       </div>
@@ -111,11 +164,27 @@ const Product = ({ id, imageUrls, colors, price, title, sizes, discount }) => {
 
 Product.propTypes = {
   id: PropTypes.string.isRequired,
-  imageUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
-  colors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  colors: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      hexCode: PropTypes.string.isRequired,
+      images: PropTypes.arrayOf(
+        PropTypes.shape({
+          url: PropTypes.string.isRequired,
+        })
+      ).isRequired,
+    })
+  ).isRequired,
   price: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  sizes: PropTypes.arrayOf(PropTypes.string).isRequired,
+  sizes: PropTypes.arrayOf(
+    PropTypes.shape({
+      size: PropTypes.string.isRequired,
+      quantity: PropTypes.number.isRequired,
+      _id: PropTypes.string.isRequired,
+    })
+  ).isRequired,
   discount: PropTypes.number.isRequired,
 };
 
