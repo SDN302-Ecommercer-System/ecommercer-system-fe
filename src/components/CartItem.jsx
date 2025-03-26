@@ -1,21 +1,35 @@
-import {
-  ActionIcon,
-  Card,
-  Group,
-  Image,
-  Menu,
-  SimpleGrid,
-  Text,
-} from "@mantine/core";
-import { IconDots, IconEye, IconFileZip, IconTrash } from "@tabler/icons-react";
+import { ActionIcon, Card, Group, Image, Menu, Text } from "@mantine/core";
+import { IconDots, IconTrash } from "@tabler/icons-react";
 import { IconPlus, IconMinus } from "@tabler/icons-react";
+import PropTypes from "prop-types";
+import { formatMoney } from "../helpers/helper";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  removeFromCartAsync,
+  updateQuantityAsync,
+} from "../redux/slice/counterSlice";
 
-const CartItem = () => {
-  const images = [
-    "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-1.png",
-    "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-2.png",
-    "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-3.png",
-  ];
+const CartItem = ({ itemId }) => {
+  const dispatch = useDispatch();
+
+  const item = useSelector((state) =>
+    state.cart.list.find((item) => item._id === itemId)
+  );
+
+  if (!item) return <h1>loading</h1>;
+
+  const updateQuantity = (quantity) => {
+    const updateDto = {
+      id: item._id,
+      quantity: item.quantity + quantity,
+    };
+
+    dispatch(updateQuantityAsync(updateDto));
+  };
+
+  const removeItem = () => {
+    dispatch(removeFromCartAsync(item._id));
+  };
 
   return (
     <div className="w-full">
@@ -24,19 +38,25 @@ const CartItem = () => {
           <Group justify="space-between" align="start" className="w-full">
             <div className="flex flex-1 gap-x-4">
               <div>
-                <Image src={images[0]} className="object-cover w-32 h-full" />
+                <Image
+                  src={item.color.images[0].url}
+                  className="object-contain w-32 h-32"
+                />
               </div>
 
               <div className="flex-1">
                 <Text fw={500} className="text-sm">
-                  Product 1
+                  {item.product.name}
                 </Text>
 
                 {/* color and size choose */}
                 <div className="flex items-center my-2 gap-x-2">
-                  <div className="w-5 h-5 bg-red-500 rounded-full"></div>
+                  <div
+                    className="w-5 h-5 rounded-full"
+                    style={{ backgroundColor: item.color.hexCode }}
+                  ></div>
                   <span className="text-xs font-medium text-slate-400">
-                    SO242 | S
+                    {item.size} | {item.color.hexCode}
                   </span>
                 </div>
 
@@ -45,11 +65,13 @@ const CartItem = () => {
                   <div className="flex flex-col">
                     <div>
                       <span className="mr-1 text-sm font-[50] line-through">
-                        999.000d
+                        {formatMoney(item.product.price, "vi-VN")}
                       </span>{" "}
                       <span className="text-sm text-red-500">-60%</span>
                     </div>
-                    <span className="text-base font-bold">999.000d</span>
+                    <span className="text-base font-bold">
+                      {formatMoney(item.price, "vi-VN")}
+                    </span>
                   </div>
                 </div>
 
@@ -67,7 +89,11 @@ const CartItem = () => {
                 </Menu.Target>
 
                 <Menu.Dropdown>
-                  <Menu.Item leftSection={<IconTrash size={14} />} color="red">
+                  <Menu.Item
+                    leftSection={<IconTrash size={14} />}
+                    color="red"
+                    onClick={removeItem}
+                  >
                     Xóa sản phẩm
                   </Menu.Item>
                 </Menu.Dropdown>
@@ -76,17 +102,24 @@ const CartItem = () => {
               {/* quantity */}
               <div className="flex items-center">
                 <div>
-                  <button className="flex items-center justify-center w-8 h-8 border font -bold h-20text-sm border-slate-200">
+                  <button
+                    onClick={() => updateQuantity(1)}
+                    className="flex items-center justify-center w-8 h-8 border font -bold h-20text-sm border-slate-200"
+                  >
                     <IconPlus size={16} />
                   </button>
                 </div>
 
                 <div className="flex items-center justify-center w-8 h-8 text-sm border border-slate-200">
-                  <span>10</span>
+                  <span>{item.quantity}</span>
                 </div>
 
                 <div>
-                  <button className="flex items-center justify-center w-8 h-8 text-sm font-bold border border-slate-200">
+                  <button
+                    disabled={item.quantity === 1}
+                    onClick={() => updateQuantity(-1)}
+                    className="flex items-center justify-center w-8 h-8 text-sm font-bold border border-slate-200 disabled:bg-slate-200"
+                  >
                     <IconMinus size={16} />
                   </button>
                 </div>
@@ -99,6 +132,10 @@ const CartItem = () => {
       </Card>
     </div>
   );
+};
+
+CartItem.propTypes = {
+  itemId: PropTypes.string.isRequired,
 };
 
 export default CartItem;
